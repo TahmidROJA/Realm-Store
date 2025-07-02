@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Minecraft Store</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);
+      /* Dark background for a gaming feel */
+      color: #f0e2e2;
+      /* Light text color */
+    }
+
+    /* Custom scrollbar for better aesthetics */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #2d3748;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #4a5568;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+
+    /* Basic fade in animation for sections */
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .navbar {
+      background-image: linear-gradient(-225deg, #050b63 0%, #300246 48%, #5e070e 100%);
+    }
+    footer {
+      background-image: linear-gradient(-225deg, #050b63 0%, #300246 48%, #5e070e 100%);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <!-- Navigation Bar -->
+  <header class="navbar bg-gray-900 shadow-lg py-4 px-6 fixed w-full z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Logo/Site Title -->
+      <a href="#" class="text-3xl font-bold text-green-400 hover:text-green-300 transition-colors duration-300">Realm
+        Store</a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex space-x-8">
+        <a href="#home"
+          class="text-lg font-medium text-gray-300 hover:text-white transition-colors duration-300 nav-link"
+          data-section="home">Home</a>
+        <a href="#products"
+          class="text-lg font-medium text-gray-300 hover:text-white transition-colors duration-300 nav-link"
+          data-section="products">Products</a>
+        <a href="#ranks"
+          class="text-lg font-medium text-gray-300 hover:text-white transition-colors duration-300 nav-link"
+          data-section="ranks">Ranks</a>
+        <a href="#crates"
+          class="text-lg font-medium text-gray-300 hover:text-white transition-colors duration-300 nav-link"
+          data-section="crates">Crates</a>
+        <a href="#coins"
+          class="text-lg font-medium text-gray-300 hover:text-white transition-colors duration-300 nav-link"
+          data-section="coins">Coins</a>
+        <a href="#about"
+          class="text-lg font-medium text-gray-300 hover:text-white transition-colors duration-300 nav-link"
+          data-section="about">About</a>
+        <a href="#contact"
+          class="text-lg font-medium text-gray-300 hover:text-white transition-colors duration-300 nav-link"
+          data-section="contact">Contact</a>
+      </nav>
+
+      <!-- Cart Icon and Mobile Menu Button -->
+      <div class="flex items-center space-x-4">
+        <button id="cart-button"
+          class="relative p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors duration-300">
+          <i class="fas fa-shopping-cart text-xl text-gray-300"></i>
+          <span id="cart-count"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+        </button>
+        <button id="mobile-menu-button"
+          class="md:hidden p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors duration-300">
+          <i class="fas fa-bars text-xl text-gray-300"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu (Hidden by default) -->
+    <div id="mobile-menu" class="md:hidden bg-gray-800 mt-4 rounded-lg shadow-xl hidden">
+      <nav class="flex flex-col p-4 space-y-2">
+        <a href="#home" class="block py-2 px-4 text-gray-300 hover:bg-gray-700 rounded-md nav-link"
+          data-section="home">Home</a>
+        <a href="#products" class="block py-2 px-4 text-gray-300 hover:bg-gray-700 rounded-md nav-link"
+          data-section="products">Products</a>
+        <a href="#ranks" class="block py-2 px-4 text-gray-300 hover:bg-gray-700 rounded-md nav-link"
+          data-section="ranks">Ranks</a>
+        <a href="#crates" class="block py-2 px-4 text-gray-300 hover:bg-gray-700 rounded-md nav-link"
+          data-section="crates">Crates</a>
+        <a href="#coins" class="block py-2 px-4 text-gray-300 hover:bg-gray-700 rounded-md nav-link"
+          data-section="coins">Coins</a>
+        <a href="#about" class="block py-2 px-4 text-gray-300 hover:bg-gray-700 rounded-md nav-link"
+          data-section="about">About</a>
+        <a href="#contact" class="block py-2 px-4 text-gray-300 hover:bg-gray-700 rounded-md nav-link"
+          data-section="contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-grow pt-24 pb-8"> <!-- Padding top to clear fixed header -->
+
+    <!-- Home Section -->
+    <section id="home" class="container mx-auto px-6 py-16 text-center active-section fade-in">
+      <div class="bg-gray-800 rounded-xl shadow-2xl p-8 md:p-16">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+          Elevate Your <span class="text-green-400">Minecraft</span> Experience
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+          Unlock exclusive ranks, powerful crate keys, and valuable coins to dominate the server!
+        </p>
+        <a href="#products"
+          class="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg inline-block">
+          Explore Products
+        </a>
+      </div>
+    </section>
+
+    <!-- Products Section (Overview) -->
+    <section id="products" class="container mx-auto px-6 py-16 hidden fade-in">
+      <h2 class="text-4xl font-bold text-white text-center mb-12">Our Products</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <a href="#ranks"
+          class="block bg-gray-800 rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300 nav-link"
+          data-section="ranks">
+          <i class="fas fa-crown text-6xl text-purple-400 mb-4"></i>
+          <h3 class="text-2xl font-bold text-white mb-2">Server Ranks</h3>
+          <p class="text-gray-400">Unlock exclusive perks and elevate your status.</p>
+        </a>
+        <a href="#crates"
+          class="block bg-gray-800 rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300 nav-link"
+          data-section="crates">
+          <i class="fa-solid fa-key text-6xl text-green-400 mb-4"></i>
+          <h3 class="text-2xl font-bold text-white mb-2">Crate Keys</h3>
+          <p class="text-gray-400">Discover rare items and valuable rewards.</p>
+        </a>
+        <a href="#coins"
+          class="block bg-gray-800 rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300 nav-link"
+          data-section="coins">
+          <i class="fas fa-coins text-6xl text-yellow-400 mb-4"></i>
+          <h3 class="text-2xl font-bold text-white mb-2">Coins</h3>
+          <p class="text-gray-400">Get in-game currency for all your needs.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Ranks Section -->
+    <section id="ranks" class="container mx-auto px-6 py-16 hidden fade-in">
+      <h2 class="text-4xl font-bold text-white text-center mb-12">Server Ranks</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Rank Card 1 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/3498db/ffffff?text=VIP" alt="VIP Rank"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-green-500">
+          <h4 class="text-2xl font-bold text-white mb-2">VIP Rank</h4>
+          <p class="text-gray-400 mb-4">Access to exclusive commands, cosmetics, and priority queue.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳30.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="rank-vip" data-name="VIP Rank" data-price="30.00">Add to Cart</button>
+        </div>
+        <!-- Rank Card 2 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/e74c3c/ffffff?text=Prime" alt="MVP Rank"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-red-500">
+          <h4 class="text-2xl font-bold text-white mb-2">Prime Rank</h4>
+          <p class="text-gray-400 mb-4">All VIP features plus unique chat tags, pet access, and more!</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳50.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="rank-mvp" data-name="Prime Rank" data-price="50.00">Add to Cart</button>
+        </div>
+        <!-- Rank Card 3 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/ff0000/ffffff?text=Deadly" alt="LEGEND Rank"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-yellow-500">
+          <h4 class="text-2xl font-bold text-white mb-2">Deadly Rank</h4>
+          <p class="text-gray-400 mb-4">The ultimate rank! All MVP features, exclusive kits, and a custom prefix.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳80.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="rank-legend" data-name="Deadly Rank" data-price="80.00">Add to Cart</button>
+        </div>
+        <!-- Rank Card 4 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/f1c40f/ffffff?text=SPIDER" alt="LEGEND Rank"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-black-500">
+          <h4 class="text-2xl font-bold text-white mb-2">SPIDER Rank</h4>
+          <p class="text-gray-400 mb-4">The ultimate rank! All MVP features, exclusive kits, and a custom prefix.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳150.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="rank-legend" data-name="SPIDER Rank" data-price="150.00">Add to Cart</button>
+        </div>
+        <!-- Rank Card 5 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/ff00d8/ffffff?text=Realm" alt="LEGEND Rank"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-white-500">
+          <h4 class="text-2xl font-bold text-white mb-2">Realm Rank</h4>
+          <p class="text-gray-400 mb-4">The ultimate rank! All MVP features, exclusive kits, and a custom prefix.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳200.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="rank-legend" data-name="Realm Rank" data-price="200.00">Add to Cart</button>
+        </div>
+        <!-- Rank Card 6 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/001fff/ffffff?text=Kitsune" alt="LEGEND Rank"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-yellow-500">
+          <h4 class="text-2xl font-bold text-white mb-2">Kitsune Rank</h4>
+          <p class="text-gray-400 mb-4">The ultimate rank! All MVP features, exclusive kits, and a custom prefix.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳500.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="rank-legend" data-name="Kitsune Rank" data-price="500.00">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Crates Section -->
+    <section id="crates" class="container mx-auto px-6 py-16 hidden fade-in">
+      <h2 class="text-4xl font-bold text-white text-center mb-12">Crate Keys</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Key Card 1 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/001fff/ffffff?text=Ultimate" alt="Common Key"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-purple-500">
+          <h4 class="text-2xl font-bold text-white mb-2">Ultimate Crate Key</h4>
+          <p class="text-gray-400 mb-4">Unlock basic cosmetics and small coin rewards.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳5.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="key-common" data-name="Ultimate Crate Key" data-price="5.00">Add to Cart</button>
+        </div>
+        <!-- Key Card 2 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/34495e/ffffff?text=Premium" alt="Rare Key"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-gray-600">
+          <h4 class="text-2xl font-bold text-white mb-2">Premium Crate Key</h4>
+          <p class="text-gray-400 mb-4">Better chance for rare items and medium coin rewards.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳8.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="key-rare" data-name="Premium Crate Key" data-price="8.00">Add to Cart</button>
+        </div>
+        <!-- Key Card 3 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/ff00d8/ffffff?text=Legendary" alt="Legendary Key"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-orange-500">
+          <h4 class="text-2xl font-bold text-white mb-2">Legendary Crate Key</h4>
+          <p class="text-gray-400 mb-4">Highest chance for epic items, exclusive cosmetics, and large coin rewards.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳10.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="key-legendary" data-name="Legendary Crate Key" data-price="10.00">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Coins Section -->
+    <section id="coins" class="container mx-auto px-6 py-16 hidden fade-in">
+      <h2 class="text-4xl font-bold text-white text-center mb-12">Get More Coins!</h2>
+      <div class="bg-gray-800 rounded-xl shadow-lg p-8 mb-12 text-center">
+        <p class="text-xl text-gray-300 mb-6">Coins are the primary in-game currency. Use them to purchase cosmetics,
+          kits, and special abilities directly within the game!</p>
+        <p class="text-lg text-gray-400">The more you buy, the better the bonus!</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Coin Pack 1 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/f39c12/ffffff?text=10K" alt="10000 Coins"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-yellow-600">
+          <h4 class="text-2xl font-bold text-white mb-2">10,000 Coins</h4>
+          <p class="text-gray-400 mb-4">A small boost to get you started.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳50.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="coins-10k" data-name="10,000 Coins" data-price="50.00">Add to Cart</button>
+        </div>
+        <!-- Coin Pack 2 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/27ae60/ffffff?text=50K" alt="50000 Coins"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-green-600">
+          <h4 class="text-2xl font-bold text-white mb-2">50,000 Coins (+1,000 Bonus!)</h4>
+          <p class="text-gray-400 mb-4">Great value for regular players.</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳200.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="coins-50k" data-name="50,000 Coins" data-price="150.00">Add to Cart</button>
+        </div>
+        <!-- Coin Pack 3 -->
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
+          <img src="https://placehold.co/128x128/8e44ad/ffffff?text=100K" alt="100000 Coins"
+            class="w-32 h-32 mb-4 rounded-full border-4 border-purple-600">
+          <h4 class="text-2xl font-bold text-white mb-2">1,00,000 Coins (+20,000 Bonus!)</h4>
+          <p class="text-gray-400 mb-4">The best deal for serious gamers!</p>
+          <p class="text-3xl font-extrabold text-green-400 mb-6">৳500.00</p>
+          <button
+            class="add-to-cart-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md"
+            data-id="coins-100k" data-name="1,00,000 Coins" data-price="500.00">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container mx-auto px-6 py-16 hidden fade-in">
+      <h2 class="text-4xl font-bold text-white text-center mb-12">About Us</h2>
+      <div class="bg-gray-800 rounded-xl shadow-lg p-8 md:p-12">
+        <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+          Welcome to <span class="text-pink-400 hover:text-pink-300 transition-colors duration-300">RealmStore</span>,
+          your ultimate destination for enhancing your Minecraft server experience! We are dedicated to providing
+          top-quality ranks, exclusive crate keys, and valuable in-game currency to help you stand out and enjoy the
+          game to its fullest. Our mission is to support the continuous development and improvement of our Minecraft
+          server, ensuring a fun and fair environment for all players.
+        </p>
+        <p class="text-lg text-gray-300 leading-relaxed">
+          We believe in transparency and excellent customer service. Every purchase directly contributes to server
+          maintenance, new features, and community events. Thank you for being a part of our amazing community!
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container mx-auto px-6 py-16 hidden fade-in">
+      <h2 class="text-4xl font-bold text-white text-center mb-12">Contact Us</h2>
+      <div class="bg-gray-800 rounded-xl shadow-lg p-8 md:p-12 max-w-2xl mx-auto">
+        <p class="text-lg text-gray-300 mb-6 text-center">Have questions or need support? Reach out to us!</p>
+        <form class="space-y-6">
+          <div>
+            <label for="name" class="block text-gray-400 text-sm font-bold mb-2">Name</label>
+            <input type="text" id="name" name="name"
+              class="shadow appearance-none border border-gray-700 rounded-md w-full py-3 px-4 text-gray-200 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-700"
+              placeholder="Your Name">
+          </div>
+          <div>
+            <label for="email" class="block text-gray-400 text-sm font-bold mb-2">Email</label>
+            <input type="email" id="email" name="email"
+              class="shadow appearance-none border border-gray-700 rounded-md w-full py-3 px-4 text-gray-200 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-700"
+              placeholder="your@example.com">
+          </div>
+          <div>
+            <label for="message" class="block text-gray-400 text-sm font-bold mb-2">Message</label>
+            <textarea id="message" name="message" rows="6"
+              class="shadow appearance-none border border-gray-700 rounded-md w-full py-3 px-4 text-gray-200 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-700"
+              placeholder="Your message..."></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit"
+              class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-md">Send
+              Message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+      <div
+        class="bg-gray-800 rounded-xl shadow-2xl p-8 w-11/12 md:w-2/3 lg:w-1/2 max-h-[90vh] overflow-y-auto relative">
+        <button id="close-cart-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+        <h3 class="text-3xl font-bold text-white mb-6 text-center">Your Cart</h3>
+        <h5 class="text-xl font-bold text-white mb-6 text-center">payment to: <span
+            class="text-orange-400 hover:text-orange-500 transition-colors duration-300">01771908686</span></h5>
+            
+
+        <div id="cart-items-container" class="space-y-4 mb-8">
+          <!-- Cart items will be loaded here by JavaScript -->
+          <p id="empty-cart-message" class="text-gray-400 text-center text-lg">Your cart is empty.</p>
+        </div>
+
+        <div class="flex justify-between items-center text-2xl font-bold text-white border-t border-gray-700 pt-4">
+          <span>Total:</span>
+          <span id="cart-total">৳0.00</span>
+        </div>
+
+        <div class="mt-8 text-center">
+          <button id="checkout-button"
+            class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled>
+            Proceed to Checkout
+          </button>
+        </div>
+
+        <!-- Payment Section (Bkash) - Hidden by default -->
+        <div id="payment-section" class="mt-12 pt-8 border-t border-gray-700 hidden">
+          <h4 class="text-2xl font-bold text-white mb-6 text-center">Complete Your Payment (Bkash)</h4>
+          <p class="text-gray-400 text-center mb-6">
+            Please send the exact total amount to our Bkash Merchant Number: <span
+              class="font-bold text-green-400">01XXXXXXXXX</span>.
+            Then, enter your Transaction ID and the last 4 digits of your Bkash number below.
+          </p>
+
+          <form id="bkash-payment-form" class="space-y-6 max-w-md mx-auto">
+            <div>
+              <label for="minecraft-username" class="block text-gray-400 text-sm font-bold mb-2">Your Minecraft
+                Username</label>
+              <input type="text" id="minecraft-username"
+                class="shadow appearance-none border border-gray-700 rounded-md w-full py-3 px-4 text-gray-200 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-700"
+                placeholder="YourMinecraftIGN" required>
+            </div>
+            <div>
+              <label for="transaction-id" class="block text-gray-400 text-sm font-bold mb-2">Bkash Transaction
+                ID</label>
+              <input type="text" id="transaction-id"
+                class="shadow appearance-none border border-gray-700 rounded-md w-full py-3 px-4 text-gray-200 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-700"
+                placeholder="e.g., TRN123ABC456" required>
+            </div>
+            <div>
+              <label for="bkash-last-digits" class="block text-gray-400 text-sm font-bold mb-2">Last 4 Digits of Your
+                Bkash Number</label>
+              <input type="text" id="bkash-last-digits" maxlength="4"
+                class="shadow appearance-none border border-gray-700 rounded-md w-full py-3 px-4 text-gray-200 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-700"
+                placeholder="e.g., 1234" required pattern="\d{4}">
+            </div>
+            <div class="text-center">
+              <button type="submit"
+                class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-md">
+                Verify Payment
+              </button>
+            </div>
+          </form>
+          <div id="payment-message" class="mt-6 text-center text-lg font-semibold hidden"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message Box (for alerts/confirmations) -->
+    <div id="message-box" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] hidden">
+      <div class="bg-gray-800 rounded-xl shadow-2xl p-8 w-11/12 md:w-1/3 text-center relative">
+        <h4 id="message-box-title" class="text-2xl font-bold text-white mb-4"></h4>
+        <p id="message-box-content" class="text-gray-300 mb-6"></p>
+        <div id="message-box-actions" class="flex justify-center space-x-4">
+          <button id="message-box-ok"
+            class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-md">OK</button>
+          <button id="message-box-cancel"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 shadow-md hidden">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-6 px-6 text-center text-gray-400">
+    <div class="container mx-auto">
+      <p>&copy; 2025 MineStore. All rights reserved. Not affiliated with Mojang Studios.</p>
+      <div class="flex justify-center space-x-4 mt-4">
+        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i
+            class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i
+            class="fab fa-twitter"></i></a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i
+            class="fab fa-discord"></i></a>
+      </div>
+    </div>
+  </footer>
+
+    <script>
+    // Get references to the elements
+    const codeToCopy = document.getElementById('codeToCopy');
+    const copyButton = document.getElementById('copyButton');
+    const copyFeedback = document.getElementById('copyFeedback');
+
+    // Add event listener to the copy button
+    copyButton.addEventListener('click', () => {
+      // Create a temporary textarea element to hold the text
+      const textarea = document.createElement('textarea');
+      textarea.value = codeToCopy.textContent; // Get the text content of the code block
+      document.body.appendChild(textarea); // Append it to the document body
+
+      // Select the text in the textarea
+      textarea.select();
+      textarea.setSelectionRange(0, 99999); // For mobile devices
+
+      try {
+        // Execute the copy command
+        document.execCommand('copy');
+        // Provide feedback to the user
+        copyButton.textContent = 'Copied!';
+        copyButton.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+        copyButton.classList.add('bg-green-500');
+
+        copyFeedback.classList.remove('opacity-0');
+        copyFeedback.classList.add('opacity-100');
+
+        // Reset button text and feedback after a short delay
+        setTimeout(() => {
+          copyButton.textContent = 'Copy';
+          copyButton.classList.remove('bg-green-500');
+          copyButton.classList.add('bg-blue-500', 'hover:bg-blue-600');
+
+          copyFeedback.classList.remove('opacity-100');
+          copyFeedback.classList.add('opacity-0');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+        // Optionally, provide an error message to the user
+        copyFeedback.textContent = 'Failed to copy!';
+        copyFeedback.classList.remove('text-green-600', 'opacity-0');
+        copyFeedback.classList.add('text-red-600', 'opacity-100');
+        setTimeout(() => {
+          copyFeedback.classList.remove('opacity-100');
+          copyFeedback.classList.add('opacity-0');
+          copyFeedback.classList.remove('text-red-600');
+          copyFeedback.classList.add('text-green-600');
+          copyFeedback.textContent = 'Copied to clipboard!'; // Reset to original message
+        }, 2000);
+      } finally {
+        // Remove the temporary textarea
+        document.body.removeChild(textarea);
+      }
+    });
+  </script>
+
+  <script>
+    // Global variables for message box callbacks
+    let messageBoxResolve;
+    let messageBoxReject;
+
+    /**
+     * Displays a custom message box instead of alert/confirm.
+     * @param {string} title - The title of the message box.
+     * @param {string} content - The main content/message.
+     * @param {boolean} isConfirm - If true, shows OK and Cancel buttons. Otherwise, only OK.
+     * @returns {Promise<boolean>} - Resolves true for OK, false for Cancel (if isConfirm).
+     */
+    function showMessageBox(title, content, isConfirm = false) {
+      const messageBox = document.getElementById('message-box');
+      const messageBoxTitle = document.getElementById('message-box-title');
+      const messageBoxContent = document.getElementById('message-box-content');
+      const messageBoxOk = document.getElementById('message-box-ok');
+      const messageBoxCancel = document.getElementById('message-box-cancel');
+      const messageBoxActions = document.getElementById('message-box-actions');
+
+      messageBoxTitle.textContent = title;
+      messageBoxContent.textContent = content;
+
+      messageBoxCancel.classList.toggle('hidden', !isConfirm);
+
+      return new Promise((resolve, reject) => {
+        messageBoxResolve = resolve;
+        messageBoxReject = reject;
+
+        messageBoxOk.onclick = () => {
+          messageBox.classList.add('hidden');
+          resolve(true);
+        };
+
+        messageBoxCancel.onclick = () => {
+          messageBox.classList.add('hidden');
+          resolve(false); // Resolve with false for cancel
+        };
+
+        messageBox.classList.remove('hidden');
+      });
+    }
+
+    // Cart state and elements
+    let cart = JSON.parse(localStorage.getItem('minecraftCart')) || [];
+    const cartButton = document.getElementById('cart-button');
+    const cartCountSpan = document.getElementById('cart-count');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCartModalButton = document.getElementById('close-cart-modal');
+    const cartItemsContainer = document.getElementById('cart-items-container');
+    const cartTotalSpan = document.getElementById('cart-total');
+    const emptyCartMessage = document.getElementById('empty-cart-message');
+    const checkoutButton = document.getElementById('checkout-button');
+    const paymentSection = document.getElementById('payment-section');
+    const bkashPaymentForm = document.getElementById('bkash-payment-form');
+    const paymentMessage = document.getElementById('payment-message');
+    const minecraftUsernameInput = document.getElementById('minecraft-username');
+
+
+    // Function to update cart display
+    function updateCartDisplay() {
+      cartItemsContainer.innerHTML = ''; // Clear existing items
+      let total = 0;
+
+      if (cart.length === 0) {
+        emptyCartMessage.classList.remove('hidden');
+        checkoutButton.disabled = true;
+      } else {
+        emptyCartMessage.classList.add('hidden');
+        checkoutButton.disabled = false;
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+
+          const cartItemDiv = document.createElement('div');
+          cartItemDiv.classList.add('flex', 'items-center', 'justify-between', 'bg-gray-700', 'rounded-lg', 'p-4', 'shadow-md');
+          cartItemDiv.innerHTML = `
+                        <div class="flex-grow">
+                            <h5 class="text-xl font-semibold text-white">${item.name}</h5>
+                            <p class="text-gray-400">৳${item.price.toFixed(2)} each</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button class="update-quantity-btn bg-gray-600 hover:bg-gray-500 text-white px-3 py-1 rounded-md" data-id="${item.id}" data-action="decrease">-</button>
+                            <span class="text-white text-lg">${item.quantity}</span>
+                            <button class="update-quantity-btn bg-gray-600 hover:bg-gray-500 text-white px-3 py-1 rounded-md" data-id="${item.id}" data-action="increase">+</button>
+                            <button class="remove-from-cart-btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md" data-id="${item.id}">Remove</button>
+                        </div>
+                    `;
+          cartItemsContainer.appendChild(cartItemDiv);
+        });
+      }
+
+      cartTotalSpan.textContent = `৳${total.toFixed(2)}`;
+      cartCountSpan.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+      // Save cart to localStorage
+      localStorage.setItem('minecraftCart', JSON.stringify(cart));
+    }
+
+    // Event listener for adding items to cart
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.id;
+        const name = button.dataset.name;
+        const price = parseFloat(button.dataset.price);
+
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push({ id, name, price, quantity: 1 });
+        }
+        updateCartDisplay();
+        showMessageBox('Item Added!', `${name} has been added to your cart.`);
+      });
+    });
+
+    // Event listener for updating/removing items in cart (delegated)
+    cartItemsContainer.addEventListener('click', (event) => {
+      if (event.target.classList.contains('remove-from-cart-btn')) {
+        const idToRemove = event.target.dataset.id;
+        showMessageBox('Remove Item?', 'Are you sure you want to remove this item from your cart?', true).then(result => {
+          if (result) {
+            cart = cart.filter(item => item.id !== idToRemove);
+            updateCartDisplay();
+            showMessageBox('Removed!', 'Item has been removed from your cart.');
+          }
+        });
+      } else if (event.target.classList.contains('update-quantity-btn')) {
+        const idToUpdate = event.target.dataset.id;
+        const action = event.target.dataset.action;
+        const itemToUpdate = cart.find(item => item.id === idToUpdate);
+
+        if (itemToUpdate) {
+          if (action === 'increase') {
+            itemToUpdate.quantity++;
+          } else if (action === 'decrease') {
+            itemToUpdate.quantity--;
+            if (itemToUpdate.quantity <= 0) {
+              // If quantity drops to 0 or less, remove the item
+              showMessageBox('Remove Item?', 'Quantity is zero. Do you want to remove this item from your cart?', true).then(result => {
+                if (result) {
+                  cart = cart.filter(item => item.id !== idToUpdate);
+                  updateCartDisplay();
+                  showMessageBox('Removed!', 'Item has been removed from your cart.');
+                } else {
+                  itemToUpdate.quantity = 1; // Reset to 1 if user cancels removal
+                  updateCartDisplay();
+                }
+              });
+              return; // Exit to prevent immediate update if confirmation is needed
+            }
+          }
+          updateCartDisplay();
+        }
+      }
+    });
+
+    // Open Cart Modal
+    cartButton.addEventListener('click', () => {
+      cartModal.classList.remove('hidden');
+      paymentSection.classList.add('hidden'); // Hide payment section when opening cart
+      paymentMessage.classList.add('hidden'); // Hide payment message
+      bkashPaymentForm.reset(); // Reset form
+      updateCartDisplay(); // Ensure cart is up-to-date
+    });
+
+    // Close Cart Modal
+    closeCartModalButton.addEventListener('click', () => {
+      cartModal.classList.add('hidden');
+    });
+
+    // Checkout Button
+    checkoutButton.addEventListener('click', () => {
+      if (cart.length > 0) {
+        paymentSection.classList.remove('hidden');
+        // Scroll to payment section within the modal
+        paymentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        showMessageBox('Cart Empty', 'Your cart is empty. Please add items before checking out.');
+      }
+    });
+
+    // Bkash Payment Form Submission (Mock)
+    bkashPaymentForm.addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevent default form submission
+
+      const minecraftUsername = minecraftUsernameInput.value.trim();
+      const transactionId = document.getElementById('transaction-id').value.trim();
+      const bkashLastDigits = document.getElementById('bkash-last-digits').value.trim();
+
+      paymentMessage.classList.remove('hidden');
+      paymentMessage.classList.remove('text-green-500', 'text-red-500'); // Clear previous styles
+      paymentMessage.textContent = 'Verifying payment... Please wait.';
+
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Mock validation logic
+      if (minecraftUsername && transactionId.length > 5 && bkashLastDigits.length === 4 && !isNaN(bkashLastDigits)) {
+        paymentMessage.classList.add('text-green-500');
+        paymentMessage.textContent = `Payment verified successfully for ${minecraftUsername}! Your items will be delivered shortly.`;
+        // Clear cart after successful payment
+        cart = [];
+        updateCartDisplay();
+        // Optionally close modal after a short delay
+        setTimeout(() => {
+          cartModal.classList.add('hidden');
+        }, 3000);
+      } else {
+        paymentMessage.classList.add('text-red-500');
+        paymentMessage.textContent = 'Payment verification failed. Please ensure all fields are filled correctly.';
+      }
+    });
+
+
+    // Handle Navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // Function to show a specific section and hide others
+    function showSection(targetId) {
+      sections.forEach(section => {
+        if (section.id === targetId) {
+          section.classList.remove('hidden');
+          section.classList.add('active-section', 'fade-in');
+        } else {
+          section.classList.add('hidden');
+          section.classList.remove('active-section', 'fade-in');
+        }
+      });
+      // Close mobile menu if open
+      mobileMenu.classList.add('hidden');
+    }
+
+    // Event listeners for navigation links
+    navLinks.forEach(link => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default anchor link behavior
+        const targetId = event.target.dataset.section;
+        showSection(targetId);
+      });
+    });
+
+    // Toggle mobile menu
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Initial load: show home section and update cart display
+    window.onload = () => {
+      const initialHash = window.location.hash.substring(1); // Get hash without '#'
+      if (initialHash && document.getElementById(initialHash)) {
+        showSection(initialHash);
+      } else {
+        showSection('home'); // Default to home section
+      }
+      updateCartDisplay();
+    };
+
+    // Update cart display on page load
+    updateCartDisplay();
+  </script>
+</body>
+
+</html>
